@@ -9,12 +9,24 @@ import { SquareChevronDown, SquareChevronUp } from "lucide-react";
 const TaskManager = () => {
 	const [tasks, setTasks] = useState<TaskType[]>([]);
 	const [formValue, setFormValue] = useState<string>("");
+	const DB_URL = "http://localhost:8000/tasks";
+	
 
 	useEffect(() => {
-		setTasks([
-			{ taskName: "Do Laundry" },
-			{ taskName: "Fold Laundry" },
-		]);
+		const getTasks = async () => {
+			try {
+				const response = await fetch(DB_URL);
+				if (!response.ok) {
+					throw new Error(`Response status: ${response.status}`);
+				}
+				const tasksJson = await response.json();
+				setTasks(tasksJson);
+	
+			} catch (err) {
+				console.error(err);
+			}
+		}
+		getTasks();
 	}, []);
 
 	const addTask = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,13 +37,24 @@ const TaskManager = () => {
 		const newTask: TaskType = {
 			taskName: formValue,
 		}; 
-		if (!tasks) {
-			setTasks([newTask]);
-		} else {
-			setTasks((t) => [newTask, ...t]);
+		try {
+			const response = await fetch(DB_URL, {
+				method: "POST", 
+				headers: {
+					"Content-type": "application/json",
+				}, 
+				body: JSON.stringify(newTask),
+			});
+			if (!response.ok) {
+				throw new Error(`Response status: ${response.status}`);
+			}
+			const createdTask = await response.json();
+			
+			setTasks((t) => [createdTask, ...t]);
+			setFormValue("");
+		} catch (err) {
+			console.error(err);
 		}
-
-		setFormValue("");
 	};
 
 	// pass as prop into Task, call when delete pressed

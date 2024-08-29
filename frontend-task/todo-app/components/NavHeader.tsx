@@ -27,16 +27,16 @@ const NavHeader = () => {
 			</nav>
 			<nav id="hamburger-nav">
 				<div className="hamburger-menu">
-					<div className="hamburger-icon" onClick={() => toggleMenu()}>
+					<div className="hamburger-icon" onClick={() => toggleMenu()} onBlur={() => setIsMenuOpen(false)}>
 						{isMenuOpen ? <X /> : <Menu />}
 					</div>
 					{isMenuOpen && (
 						<div className={`menu-links ${isMenuOpen ? "open" : "closed"}`}>
 							<li>
-								<Link className="nav-link" href="/">Todo List</Link>
+								<Link className="nav-link" href="/" onClick={() => toggleMenu()}>Todo List</Link>
 							</li>
 							<li>
-								<Link className="nav-link" href="/about">About</Link>
+								<Link className="nav-link" href="/about" onClick={() => toggleMenu()}>About</Link>
 							</li>
 						</div>
 					)}

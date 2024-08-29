@@ -1,0 +1,6 @@
+{
+	"tasks": [
+		{ "taskName": "Do Laundry"},
+		{ "taskName": "Fold Laundry"}
+	]
+}
