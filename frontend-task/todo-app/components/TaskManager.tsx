@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Task from "./Task";
-import { TaskProps, TaskType } from "@/components/utils";
+import { TaskType } from "@/components/utils";
 import "@/styles/TaskManager.modules.css";
 import { SquareChevronDown, SquareChevronUp } from "lucide-react";
 

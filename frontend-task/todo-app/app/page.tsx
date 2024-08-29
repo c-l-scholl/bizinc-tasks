@@ -1,10 +1,12 @@
 import TaskManager from "@/components/TaskManager";
 
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <TaskManager />
     </>
   );
 }
+
+export default Home;

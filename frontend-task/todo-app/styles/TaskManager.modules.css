@@ -5,8 +5,9 @@
   padding: 1.25rem; /* 20px */
   background-color: #f9f9f9;
   border-radius: 0.5rem; /* 8px */
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px */
-	height: 100vh;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); 
+  min-height: 100vh;
+	height: auto;
 }
 
 .task-mng-input-container {
