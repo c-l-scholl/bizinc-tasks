@@ -1,6 +1,13 @@
 type TaskProps = {
 	taskName: string;
-	id: number;
+	id: string;
+	deleteTask: (id: string) => void;
+	editTask: (id: string) => void;
 }
 
-export type { TaskProps };
+type TaskType = {
+	taskName: string;
+	id: string;
+}
+
+export type { TaskProps, TaskType };

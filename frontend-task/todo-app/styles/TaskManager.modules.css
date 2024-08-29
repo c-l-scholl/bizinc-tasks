@@ -16,8 +16,15 @@
   margin-bottom: 1.25rem; /* 20px */
 }
 
+form {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-grow: 1;
+}
+
 .task-mng-input {
   flex: 1;
+  flex-grow: 1;
   padding: 0.625rem; /* 10px */
   border: 0.0625rem solid #ccc; /* 1px */
   border-radius: 0.25rem; /* 4px */
@@ -66,11 +73,15 @@
 }
 
 .task-mng-button {
-	padding: 0.5rem 0.5rem; 
-	background-color: black;
-  color: white;
+  background: none;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  align-items: center;
   border: none;
-  border-radius: 1rem; 
   cursor: pointer;
-  font-size: 0.875rem; 
+}
+
+.task-mng-button:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+  transition: all ease-in-out 300ms; 
 }
