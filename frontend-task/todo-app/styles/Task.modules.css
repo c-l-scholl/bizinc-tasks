@@ -1,11 +1,11 @@
+
 .task-container {
+  flex-grow: 1;
   display: flex;
-	flex-grow: 1;
 	flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 1rem; 
-	gap: 1rem;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 0.5rem; 
@@ -16,28 +16,29 @@
 	display: flex;
 }
 
+
+
+
 .task-name {
   font-size: 1rem; 
+  font-weight: bold;
   color: #333;
-}
-
-.task-date {
-  font-size: 0.875rem; 
-  color: #888;
 }
 
 .task-button-container {
   display: flex;
   gap: 0.5rem; 
+  margin-left: 1rem;
 }
 
 .task-button {
-  padding: 0.5rem 1rem; 
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.5rem; 
   color: white;
   border: none;
   border-radius: 0.5rem; 
   cursor: pointer;
-  font-size: 0.875rem; 
 }
 
 .task-delete-button {
@@ -46,12 +47,4 @@
 
 .task-delete-button:hover {
 	background-color: rgba(179, 14, 14, 0.74);
-}
-
-.task-edit-button {
-	background-color: #007bff;
-}
-
-.task-edit-button:hover {
-  background-color: #0056b3;
 }

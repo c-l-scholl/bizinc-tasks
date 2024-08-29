@@ -12,33 +12,52 @@ const TaskManager = () => {
 
 	useEffect(() => {
 		setTasks([
-			{ id: "1", taskName: "Do Laundry" },
-			{ id: "2", taskName: "Fold Laundry" },
+			{ taskName: "Do Laundry" },
+			{ taskName: "Fold Laundry" },
 		]);
 	}, []);
 
 	const addTask = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const newTask: TaskType = { id: String(Math.random() * 100), taskName: formValue }; // add random id to this
-		if (!tasks) {
-			setTasks([newTask])
-		} else {
-			setTasks(t => [newTask, ...t]);
+		if (formValue.trim() === "") {
+			return;
 		}
-		
+		const newTask: TaskType = {
+			taskName: formValue,
+		}; 
+		if (!tasks) {
+			setTasks([newTask]);
+		} else {
+			setTasks((t) => [newTask, ...t]);
+		}
+
 		setFormValue("");
 	};
 
 	// pass as prop into Task, call when delete pressed
-	const deleteTask = async (taskId: string) => {
+	const deleteTask = async (toDeleteIndex: number) => {
 		if (!tasks) {
 			return;
 		}
-		setTasks(t => t.filter((task, _) => task.id !== taskId));
+		setTasks((t) => t.filter((task, index) => index !== toDeleteIndex));
+	};
+
+	const moveTaskUp = (index: number) => {
+		if (index > 0) {
+			const updatedTasks = [...tasks];
+			[updatedTasks[index], updatedTasks[index - 1]] = 
+				[updatedTasks[index - 1], updatedTasks[index]];
+			setTasks(updatedTasks);
+		}
 	}
 
-	const editTask = async (taskId: string) => {
-		
+	const moveTaskDown = (index: number) => {
+		if (index < tasks.length - 1) {
+			const updatedTasks = [...tasks];
+			[updatedTasks[index + 1], updatedTasks[index]] = 
+				[updatedTasks[index] , updatedTasks[index + 1]];
+			setTasks(updatedTasks);
+		}
 	}
 
 	return (
@@ -48,22 +67,30 @@ const TaskManager = () => {
 					<input
 						className="task-mng-input"
 						value={formValue}
-						onChange={(event) => {setFormValue(event?.target.value)}}
+						onChange={(event) => {
+							setFormValue(event?.target.value);
+						}}
 						placeholder="Enter a new task..."
 					/>
-					<button className="task-mng-add-button" type="submit" disabled={!formValue}>Add Task</button>
+					<button
+						className="task-mng-add-button"
+						type="submit"
+						disabled={!formValue}
+					>
+						Add Task
+					</button>
 				</form>
 			</div>
 			<div className="task-list-container">
 				{tasks &&
-					tasks.map((t) => (
-						<div key={t.id}>
-							<Task taskName={t.taskName} id={t.id} deleteTask={deleteTask} editTask={editTask}/>
+					tasks.map((task, index) => (
+						<div key={index}>
+							<Task taskName={task.taskName} deleteCurrentTask={() => deleteTask(index)} />
 							<div className="task-mng-button-container">
-								<button className="task-mng-button task-mng-up-button">
+								<button onClick={() => moveTaskUp(index)} className="task-mng-button task-mng-up-button">
 									<SquareChevronUp />
 								</button>
-								<button className="task-mng-button task-mng-down-button">
+								<button onClick={() => moveTaskDown(index)} className="task-mng-button task-mng-down-button">
 									<SquareChevronDown />
 								</button>
 							</div>
