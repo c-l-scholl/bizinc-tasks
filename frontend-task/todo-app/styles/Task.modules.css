@@ -1,0 +1,57 @@
+.task-container {
+  display: flex;
+	flex-grow: 1;
+	flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem; 
+	gap: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem; 
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); 
+}
+
+.task-name-container {
+	display: flex;
+}
+
+.task-name {
+  font-size: 1rem; 
+  color: #333;
+}
+
+.task-date {
+  font-size: 0.875rem; 
+  color: #888;
+}
+
+.task-button-container {
+  display: flex;
+  gap: 0.5rem; 
+}
+
+.task-button {
+  padding: 0.5rem 1rem; 
+  color: white;
+  border: none;
+  border-radius: 0.5rem; 
+  cursor: pointer;
+  font-size: 0.875rem; 
+}
+
+.task-delete-button {
+	background-color: rgba(235, 11, 11, 0.8);
+}
+
+.task-delete-button:hover {
+	background-color: rgba(179, 14, 14, 0.74);
+}
+
+.task-edit-button {
+	background-color: #007bff;
+}
+
+.task-edit-button:hover {
+  background-color: #0056b3;
+}

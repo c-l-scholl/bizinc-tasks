@@ -1,7 +1,6 @@
 type TaskProps = {
 	taskName: string;
-	id: string;
-	dateCreated: Date;
+	id: number;
 }
 
 export type { TaskProps };
