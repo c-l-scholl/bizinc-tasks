@@ -1,6 +1,19 @@
 {
-	"tasks": [
-		{ "taskName": "Do Laundry"},
-		{ "taskName": "Fold Laundry"}
-	]
+  "tasks": [
+    {
+      "id": "082624e7-59e0-48e5-990c-718230f1f82f",
+      "taskName": "hello",
+      "dateCreated": "2024-08-29T22:45:37.514Z"
+    },
+    {
+      "id": "3e858dc7-d774-49f2-9495-1865ab83cdce",
+      "taskName": "i think this is finally good enough",
+      "dateCreated": "2024-08-29T22:57:51.829Z"
+    },
+    {
+      "id": "9da961d8-5da8-447b-908f-43afd68dccc6",
+      "taskName": "ok now its fine",
+      "dateCreated": "2024-08-29T22:58:01.122Z"
+    }
+  ]
 }
