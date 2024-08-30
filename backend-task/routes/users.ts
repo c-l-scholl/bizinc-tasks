@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { v4 as uuidV4 } from "uuid";
 import BadRequestError from "../middleware/errorTypes/BadRequestError";
+import logger from "../middleware/logger";
 const router = express.Router();
 
 type User = {

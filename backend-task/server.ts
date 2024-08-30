@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import "express-async-errors";
 import errorHandler from "./middleware/errorHandler";
 import notFound from "./middleware/notFound";
+import logger from "./middleware/logger";
 
 dotenv.config();
 const PORT = process.env.PORT || 8000;
@@ -17,18 +18,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // for postman
 
+// Logging Middleware
+app.use(logger);
+
 // Routing
 app.use("/api/users", users);
-
-// Logging Middleware
-// app.use(logger);
 
 // Catchall Not Found
 app.use(notFound);
 
-// Error Handling Middleware
+// Error Handling 
 app.use(errorHandler);
 
-
-
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+app.listen(PORT);
