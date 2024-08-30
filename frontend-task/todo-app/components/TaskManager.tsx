@@ -19,7 +19,6 @@ const TaskManager = () => {
 	// GET
 	const getTasks = async () => {
 		try {
-			//const response = await fetch(`${DB_URL}?_sort=dateCreated&_order=desc`);
 			const response = await fetch(DB_URL);
 			if (!response.ok) {
 				throw new Error(`Response status: ${response.status}`);
@@ -50,7 +49,7 @@ const TaskManager = () => {
 			if (!response.ok) {
 				throw new Error(`Response status: ${response.status}`);
 			}
-			const createdTask = await response.json();
+			//const createdTask = await response.json();
 			
 			getTasks();
 			setFormValue("");
@@ -76,7 +75,7 @@ const TaskManager = () => {
 			if (!response.ok) {
 				throw new Error(`Response status: ${response.status}`);
 			}
-			const deletedTask = response.json();
+			//const deletedTask = response.json();
 			getTasks();
 		} catch (err) {
 			console.error(err);

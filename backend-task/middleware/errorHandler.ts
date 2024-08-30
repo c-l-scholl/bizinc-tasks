@@ -1,0 +1,12 @@
+import { Request, Response, NextFunction } from "express";
+import { CustomError } from "./errorTypes/CustomError";
+
+const errorHandler = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
+	if (err.status) {
+		res.status(err.status).json({ msg: err.message });
+	}
+	res.status(500).json({ msg: "A user with the id of ${uid} was not found"})
+}
+
+
+export default errorHandler;
