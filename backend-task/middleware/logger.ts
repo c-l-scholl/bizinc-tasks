@@ -1,8 +1,29 @@
 import { Request, Response, NextFunction } from "express";
+import colors from "colors";
+
+
 
 const logger = (req: Request, res: Response, next: NextFunction) => {
+
+	type MethodColorsType = {
+		GET: colors.Color;
+		POST: colors.Color;
+		PUT: colors.Color;
+		DELETE: colors.Color;
+		[key: string]: colors.Color; // Add index signature
+};
+
+	const methodColors: MethodColorsType = {
+		GET: colors.green,
+		POST: colors.yellow,
+		PUT: colors.blue,
+		DELETE: colors.red,
+	}
+
+	const curColor: colors.Color = methodColors[req.method] || colors.white;
+
 	console.log(
-		`${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
+		curColor(`${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`)
 	);
 	next();
 };
