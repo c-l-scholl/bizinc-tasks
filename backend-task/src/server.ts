@@ -11,11 +11,9 @@ import notFound from "../middleware/notFound";
 import logger from "../middleware/logger";
 
 
-
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
-
 
 
 // Body parser middleware
