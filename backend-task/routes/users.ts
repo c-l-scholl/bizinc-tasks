@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { v4 as uuidV4 } from "uuid";
 import BadRequestError from "../middleware/errorTypes/BadRequestError";
-import { query } from "../src/db";
+import { query } from "../database/db";
 
 const router = express.Router();
 
@@ -34,22 +34,31 @@ type User = {
 // ];
 
 // Get all users
+
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const result = await query("SELECT * FROM users");
-		const users: User[] = result.rows;
-
 		if (req.query.limit && typeof req.query.limit == "string") {
 			const queryLimit: number = parseInt(req.query.limit);
 
-			if (!isNaN(queryLimit) && queryLimit > 0) {
-				return res.status(200).json(users.slice(0, queryLimit));
+			if (isNaN(queryLimit) || queryLimit <= 0 || queryLimit > Number.MAX_SAFE_INTEGER) {
+				throw new BadRequestError({
+					code: 400,
+					message: `Please enter a positive number for the limit`,
+					logging: false,
+				});
 			}
+			const getLimitResult = await query("SELECT * FROM users LIMIT $1", [
+				queryLimit,
+			]);
+			return res.status(200).json(getLimitResult.rows);
 		}
-		res.status(200).json(users);
+
+		const getResult = await query("SELECT * FROM users");
+
+		res.status(200).json(getResult.rows);
 	} catch (err) {
 		console.error("Error querying data:", err);
-		return res.status(500).json({ error: "Internal Server Error" });
+		next(err);
 	}
 });
 
@@ -63,14 +72,14 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		if (!foundUser) {
 			throw new BadRequestError({
 				code: 404,
-				message: `A user with the id of ${uid} was not found`,
+				message: `A user with the id of '${uid}' was not found`,
 				logging: false,
 			});
 		}
 		res.status(200).json(foundUser);
 	} catch (err) {
-		console.error(err);
-		return res.status(500).json({ error: "Internal Server Error" });
+		console.error("Error querying data:", err);
+		next(err);
 	}
 });
 
@@ -116,16 +125,16 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 			]
 		);
 		if (updateResult.rowCount === 0) {
-      throw new BadRequestError({
-        code: 500,
-        message: `The user was not able to be created`,
-        logging: false,
-      });
-    }
-		res.status(201).json({ message: "User created successfully" });
+			throw new BadRequestError({
+				code: 500,
+				message: `The user was not able to be created`,
+				logging: false,
+			});
+		}
+		res.status(201).json({ message: `User with id '${createdUser.id}' was created successfully` });
 	} catch (err) {
-		console.error(err);
-		res.status(500).json({ error: "Internal Server Error " });
+		console.error("Error querying data:", err);
+		next(err);
 	}
 });
 
@@ -141,7 +150,7 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		if (!foundUser) {
 			throw new BadRequestError({
 				code: 404,
-				message: `A user with the id of ${uid} was not found`,
+				message: `A user with the id of '${uid}' was not found`,
 				logging: false,
 			});
 		}
@@ -153,47 +162,50 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		};
 		const putResult = await query(
 			"UPDATE users SET user_firstName = $2, user_lastName = $3, user_email = $4 WHERE user_id = $1",
-			[updatedUser.id, updatedUser.firstName, updatedUser.lastName, updatedUser.email]
+			[
+				updatedUser.id,
+				updatedUser.firstName,
+				updatedUser.lastName,
+				updatedUser.email,
+			]
 		);
 
 		if (putResult.rowCount === 0) {
-      throw new BadRequestError({
-        code: 404,
-        message: `A user with the id of ${uid} was not found`,
-        logging: false,
-      });
-    }
-		res.status(200).json({ message: "User updated successfully" });
-	} catch (err) {
-		console.error(err);
-		return res.status(500).json({ error: "Internal Server Error" });
-	}
-
-	
-});
-
-// Delete user
-router.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
-	try { 
-		const uid = req.params.id;
-
-		const deleteResult = await query('DELETE FROM users WHERE user_id = $1', [uid]);
-
-		if (deleteResult.rowCount === 0) {
 			throw new BadRequestError({
 				code: 404,
-				message: `A user with the id of ${uid} was not found`,
+				message: `A user with the id of '${uid}' was not found`,
 				logging: false,
 			});
 		}
-	
-		res.status(200).json({ message: "User deleted successfully" });
-
+		res.status(200).json({ message: `User with id '${uid}' was updated successfully` });
 	} catch (err) {
-		console.error(err);
-		return res.status(500).json({ error: "Internal Server Error" });
+		console.error("Error querying data:", err);
+		next(err);
 	}
-	
 });
+
+// Delete user
+router.delete("/:id",	async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const uid = req.params.id;
+
+			const deleteResult = await query("DELETE FROM users WHERE user_id = $1", [uid]);
+
+			if (deleteResult.rowCount === 0) {
+				throw new BadRequestError({
+					code: 404,
+					message: `A user with the id of '${uid}' was not found`,
+					logging: false,
+				});
+			}
+
+			res.status(200).json({ message: `User with id of '${uid}' was deleted successfully` });
+
+		} catch (err) {
+			console.error("Error querying data:", err);
+			next(err);
+		}
+	}
+);
 
 export default router;
