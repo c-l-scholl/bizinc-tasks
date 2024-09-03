@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Task from "./Task";
+import Task from "../Task/Task";
 import { TaskType } from "@/components/utils";
-import "@/styles/TaskManager.modules.css";
+import "./TaskManager.modules.css";
 import { SquareChevronDown, SquareChevronUp } from "lucide-react";
 import { v4 as uuidV4 } from "uuid";
 
 const TaskManager = () => {
+	const [isTaskListLoading, setIsTaskListLoading] = useState<boolean>(false);
 	const [tasks, setTasks] = useState<TaskType[]>([]);
 	const [formValue, setFormValue] = useState<string>("");
 	const DB_URL = "http://localhost:8000/tasks";
@@ -16,8 +17,13 @@ const TaskManager = () => {
 		getTasks();
 	}, []);
 
+	useEffect(() => {
+
+	}, [isTaskListLoading]);
+
 	// GET
 	const getTasks = async () => {
+		setIsTaskListLoading(true);
 		try {
 			const response = await fetch(DB_URL);
 			if (!response.ok) {
@@ -29,6 +35,7 @@ const TaskManager = () => {
 		} catch (err) {
 			console.error(err);
 		}
+		setIsTaskListLoading(false);
 	}
 
 	// POST
@@ -171,7 +178,8 @@ const TaskManager = () => {
 				</form>
 			</div>
 			<div className="task-list-container">
-				{tasks &&
+				{isTaskListLoading && <span>Loading...</span>}
+				{tasks && !isTaskListLoading &&
 					tasks.map((task, index) => (
 						<div key={index}>
 							<Task taskName={task.taskName} dateCreated={task.dateCreated} deleteCurrentTask={() => deleteTask(index)} />

@@ -20,5 +20,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 To run json-server, open up a new terminal and run 
 
 ```bash
+npm install json-server@0.17.4
 npx json-server --watch db.json --port 8000
 ```

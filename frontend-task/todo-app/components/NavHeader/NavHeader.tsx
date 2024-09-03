@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import "@/styles/NavHeader.modules.css"
+import "./NavHeader.modules.css"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 

@@ -1,14 +1,19 @@
 {
   "tasks": [
     {
-      "id": "38eb0839-c519-4ab1-9ade-11c61a0e58e7",
-      "taskName": "get bean home",
-      "dateCreated": "2024-09-03T00:05:37.573Z"
+      "id": "941b7686-a474-4d6a-aa70-21544a236c5f",
+      "taskName": "change the trash icon to a check icon",
+      "dateCreated": "2024-09-03T20:03:56.968Z"
     },
     {
-      "id": "73d3806f-23a4-4c9e-b3a1-7e90583ae3a0",
-      "taskName": "call bean",
-      "dateCreated": "2024-09-03T00:05:20.972Z"
+      "id": "9cb86df8-2119-4f9d-9804-306e34252ee3",
+      "taskName": "add a loading animation prevent visual skipping",
+      "dateCreated": "2024-09-03T20:04:06.320Z"
+    },
+    {
+      "id": "fb52ef01-be9d-4424-9e15-67002d6c084a",
+      "taskName": "submit full stack project",
+      "dateCreated": "2024-09-03T20:03:45.800Z"
     }
   ]
 }
