@@ -5,7 +5,7 @@ CREATE TABLE users
     user_id              VARCHAR(80) NOT NULL,
     user_firstName       VARCHAR(32) NOT NULL,
     user_lastName        VARCHAR(32) NOT NULL,
-    user_email           VARCHAR(40) NOT NULL,
+    user_email           VARCHAR(320) NOT NULL,
     created_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
