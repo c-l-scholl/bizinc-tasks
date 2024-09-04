@@ -2,6 +2,9 @@
 
 import "./about.css";
 
+
+// Animation idea from https://www.letsbuildui.dev/articles/how-to-animate-borders-in-css/
+
 const About = () => {
 	return (
 		<div className="container">

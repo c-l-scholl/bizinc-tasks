@@ -13,18 +13,19 @@
 	margin: 100px auto;
 	border-radius: 8px;
 	position: relative;
-	/* overflow: hidden; */
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 1;
 }
 
 .card .inner {
 	padding: 25px;
-	background: rgba(229, 216, 216, 0.854);
+	background: rgba(247, 245, 245, 0.854);
 	color: black;
 	border-radius: 8px;
-	margin: 5px;
+	margin: 7px;
 	position: relative;
 	z-index: 1;
 	width: 100%;
@@ -37,10 +38,10 @@
 .card::before {
 	content: "";
 	display: block;
-	background-color: linear-gradient(
+	background: linear-gradient(
 		90deg,
-		rgb(90, 11, 159),
-    rgb(9, 126, 173)
+		rgb(171, 90, 242),
+    rgb(102, 191, 226)
 	);
 
 	height: 500px;
@@ -56,7 +57,7 @@
 	}
 
 	to { 
-		transform: rotate(360);
+		transform: rotate(360deg);
 	}
 }
 
