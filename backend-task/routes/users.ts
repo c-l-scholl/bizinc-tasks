@@ -5,6 +5,7 @@ import { query } from "../database/db";
 
 const router = express.Router();
 
+
 type User = {
 	id: string;
 	firstName: string;
@@ -36,6 +37,15 @@ type User = {
 
 // Get all users
 
+/**
+ * Get user details.
+ * 
+ * @route GET api/users/
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ * @throws {BadRequestError} If the user with the specified ID is not found
+ */
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		if (req.query.limit && typeof req.query.limit == "string") {
@@ -62,7 +72,15 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 	}
 });
 
-// Get single user
+/**
+ * Get a specific user 
+ * 
+ * @route GET api/users/:id
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ * @throws {BadRequestError} If the user with the specified ID is not found
+ */
 router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const uid: string = req.params.id;
@@ -82,7 +100,15 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 	}
 });
 
-// Create new user
+/**
+ * Create user details.
+ * 
+ * @route POST api/users
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ * @throws {BadRequestError} If the user with the specified ID is not found
+ */
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 	const createdUser: User = {
 		id: uuidV4(),
@@ -141,7 +167,15 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 	}
 });
 
-// Update user
+/**
+ * Update user details.
+ * 
+ * @route PUT api/users/:id
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ * @throws {BadRequestError} If the user with the specified ID is not found
+ */
 router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const uid = req.params.id;
@@ -186,7 +220,15 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 	}
 });
 
-// Delete user
+/**
+ * Delete a user.
+ * 
+ * @route DELETE api/users/:id
+ * @param {Request} req - Express request object
+ * @param {Response} res - Express response object
+ * @param {NextFunction} next - Express next middleware function
+ * @throws {BadRequestError} If the user with the specified ID is not found
+ */
 router.delete("/:id",	async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const uid = req.params.id;
