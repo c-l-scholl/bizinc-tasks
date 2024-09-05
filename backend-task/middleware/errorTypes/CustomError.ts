@@ -7,7 +7,6 @@ export type CustomErrorContent = {
 export abstract class CustomError extends Error {
 	abstract readonly status: number;
 	abstract readonly errors: CustomErrorContent[];
-	abstract readonly hasLogging: boolean;
 
 	constructor(message: string) {
 		super(message);

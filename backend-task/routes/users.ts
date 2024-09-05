@@ -10,6 +10,7 @@ type User = {
 	firstName: string;
 	lastName: string;
 	email: string;
+	password: string;
 };
 
 // let users: User[] = [
@@ -44,7 +45,6 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 				throw new BadRequestError({
 					code: 400,
 					message: `Please enter a positive number for the limit`,
-					logging: false,
 				});
 			}
 			const getLimitResult = await query("SELECT * FROM users LIMIT $1", [
@@ -73,7 +73,6 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 			throw new BadRequestError({
 				code: 404,
 				message: `A user with the id of '${uid}' was not found`,
-				logging: false,
 			});
 		}
 		res.status(200).json(foundUser);
@@ -90,45 +89,49 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 		firstName: req.body.firstName || "",
 		lastName: req.body.lastName || "",
 		email: req.body.email || "",
+		password: req.body.password || "",
 	};
 
 	if (!createdUser.firstName || createdUser.firstName.length === 0) {
 		throw new BadRequestError({
 			code: 400,
 			message: `Please include a first name!`,
-			logging: false,
 		});
 	}
 	if (!createdUser.lastName || createdUser.lastName.length === 0) {
 		throw new BadRequestError({
 			code: 400,
 			message: `Please include a last name!`,
-			logging: false,
 		});
 	}
 	if (!createdUser.email || createdUser.email.length === 0) {
 		throw new BadRequestError({
 			code: 400,
 			message: `Please include an email!`,
-			logging: false,
 		});
+	}
+	if (!createdUser.password || createdUser.password.length < 8) {
+		throw new BadRequestError({
+			code: 400,
+			message: "Passwords must be at least 8 characters!",
+		})
 	}
 
 	try {
 		const updateResult = await query(
-			"INSERT INTO users (user_id, user_firstName, user_lastName, user_email) VALUES ($1, $2, $3, $4)",
+			"INSERT INTO users (user_id, user_firstName, user_lastName, user_email, user_password) VALUES ($1, $2, $3, $4, $5)",
 			[
 				createdUser.id,
 				createdUser.firstName,
 				createdUser.lastName,
 				createdUser.email,
+				createdUser.password,
 			]
 		);
 		if (updateResult.rowCount === 0) {
 			throw new BadRequestError({
 				code: 500,
 				message: `The user was not able to be created`,
-				logging: false,
 			});
 		}
 		res.status(201).json({ message: `User with id '${createdUser.id}' was created successfully` });
@@ -151,7 +154,6 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 			throw new BadRequestError({
 				code: 404,
 				message: `A user with the id of '${uid}' was not found`,
-				logging: false,
 			});
 		}
 		const updatedUser: User = {
@@ -159,6 +161,7 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 			firstName: req.body.firstName ?? foundUser.user_firstName,
 			lastName: req.body.lastName ?? foundUser.user_lastName,
 			email: req.body.email ?? foundUser.user_email,
+			password: req.body.password ?? foundUser.user_password,
 		};
 		const putResult = await query(
 			"UPDATE users SET user_firstName = $2, user_lastName = $3, user_email = $4 WHERE user_id = $1",
@@ -174,7 +177,6 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 			throw new BadRequestError({
 				code: 404,
 				message: `A user with the id of '${uid}' was not found`,
-				logging: false,
 			});
 		}
 		res.status(200).json({ message: `User with id '${uid}' was updated successfully` });
@@ -195,7 +197,6 @@ router.delete("/:id",	async (req: Request, res: Response, next: NextFunction) =>
 				throw new BadRequestError({
 					code: 404,
 					message: `A user with the id of '${uid}' was not found`,
-					logging: false,
 				});
 			}
 
