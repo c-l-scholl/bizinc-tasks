@@ -5,10 +5,23 @@ import "./NavHeader.modules.css"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
+/**
+ * NavHeader handles navigation
+ * @function
+ */
 const NavHeader = () => {
+
+	/**
+	 * State to manage the hamburger nav menu
+	 * @type {boolean}
+	 */
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-	const toggleMenu = (): void => {
+	/**
+	 * Toggles the menu state variable
+	 * @function
+	 */
+	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 	return (
@@ -16,7 +29,7 @@ const NavHeader = () => {
 			<nav id="desktop-nav">
 				<div>
 					<ul className="nav-links-list">
-						<li >
+						<li>
 							<Link className="nav-link" href="/">Todo List</Link>
 						</li>
 						<li>

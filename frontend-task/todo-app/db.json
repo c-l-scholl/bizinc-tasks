@@ -1,19 +1,24 @@
 {
   "tasks": [
     {
-      "id": "941b7686-a474-4d6a-aa70-21544a236c5f",
-      "taskName": "change the trash icon to a check icon",
-      "dateCreated": "2024-09-03T20:03:56.968Z"
-    },
-    {
       "id": "9cb86df8-2119-4f9d-9804-306e34252ee3",
-      "taskName": "add a loading animation prevent visual skipping",
-      "dateCreated": "2024-09-03T20:04:06.320Z"
-    },
-    {
-      "id": "fb52ef01-be9d-4424-9e15-67002d6c084a",
       "taskName": "submit full stack project",
       "dateCreated": "2024-09-03T20:03:45.800Z"
+    },
+    {
+      "id": "047de7e5-9914-4262-9822-21799d69905c",
+      "taskName": "Do Laundry",
+      "dateCreated": "2024-09-05T01:43:25.205Z"
+    },
+    {
+      "id": "1e0c141d-f03f-4526-8dcc-f45be7582713",
+      "taskName": "Name cat",
+      "dateCreated": "2024-09-05T01:44:50.274Z"
+    },
+    {
+      "id": "a8f4eabc-e247-4339-9e27-2f1d01f48912",
+      "taskName": "Make dinner",
+      "dateCreated": "2024-09-05T01:45:05.514Z"
     }
   ]
 }
