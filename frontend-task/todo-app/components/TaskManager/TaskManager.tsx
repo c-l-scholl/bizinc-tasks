@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TaskType } from "@/components/utils";
 import Task from "../Task/Task";
 import "./TaskManager.modules.css";
@@ -43,15 +43,6 @@ const TaskManager = () => {
 	useEffect(() => {
 		getTasks();
 	}, []);
-
-
-	/**
-	 * Update the layout when the loading state changes
-	 * @function
-	 */
-	useLayoutEffect(() => {
-
-	}, [isTaskListLoading]);
 
 	/**
 	 * Fetches the list of tasks from the database
