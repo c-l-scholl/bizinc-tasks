@@ -217,8 +217,8 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 
 		if (putResult.rowCount === 0) {
 			throw new BadRequestError({
-				code: 404,
-				message: `A user with the id of '${uid}' was not found`,
+				code: 500,
+				message: `The user with id ${uid} was not able to be updated`,
 			});
 		}
 		res.status(200).json({ message: `User with id '${uid}' was updated successfully` });
