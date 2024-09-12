@@ -6,11 +6,7 @@ import colors from "colors";
 const logger = (req: Request, res: Response, next: NextFunction) => {
 
 	type MethodColorsType = {
-		GET: colors.Color;
-		POST: colors.Color;
-		PUT: colors.Color;
-		DELETE: colors.Color;
-		[key: string]: colors.Color; // Add index signature
+		[key: string]: colors.Color; 
 };
 
 	const methodColors: MethodColorsType = {
