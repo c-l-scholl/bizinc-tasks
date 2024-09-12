@@ -56,7 +56,7 @@ The error handler lets me customize the status code and message of the error, or
 
 ### PostgreSQL
 
-I created a single table called users in a PostgreSQL database, and implemented CRUD operations in the routing file (routes/users.ts) to interact with the database. I included all necessary information that would be required to make an account on a website (user_id, email, and password) and included first name and last name since they were easier to test at first. Each call the to database is initiated through a Postman action, as the database is called through the router functions. 
+I created a single table called users in a PostgreSQL database, and implemented CRUD operations in the routing file (routes/users.ts) to interact with the database. I included all necessary information that would be required to make an account on a website (user_id, email, and password) and included first name and last name since they were easier to test at first. Each call to the database is initiated through a Postman action, as the database is called through the router functions. 
 
 
 
