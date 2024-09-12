@@ -14,6 +14,14 @@ type User = {
 	password: string;
 };
 
+type SQLUser = {
+	user_id: string,
+	user_firstname: string,
+	user_lastname: string,
+	user_email: string,
+	user_password: string,
+}
+
 // let users: User[] = [
 // 	{
 // 		id: "1",
@@ -182,7 +190,7 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		const getResult = await query("SELECT * FROM users WHERE user_id = $1", [
 			uid,
 		]);
-		const foundUser = getResult.rows[0];
+		const foundUser: SQLUser = getResult.rows[0];
 
 		if (!foundUser) {
 			throw new BadRequestError({
@@ -192,8 +200,8 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		}
 		const updatedUser: User = {
 			id: foundUser.user_id,
-			firstName: req.body.firstName ?? foundUser.user_firstName,
-			lastName: req.body.lastName ?? foundUser.user_lastName,
+			firstName: req.body.firstName ?? foundUser.user_firstname,
+			lastName: req.body.lastName ?? foundUser.user_lastname,
 			email: req.body.email ?? foundUser.user_email,
 			password: req.body.password ?? foundUser.user_password,
 		};

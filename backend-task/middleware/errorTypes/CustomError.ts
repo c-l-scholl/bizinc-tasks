@@ -11,7 +11,6 @@ export abstract class CustomError extends Error {
 	constructor(message: string) {
 		super(message);
 
-		// Explicitly define prototype chain
 		Object.setPrototypeOf(this, CustomError.prototype);
 	}
 
