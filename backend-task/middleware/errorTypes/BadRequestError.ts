@@ -6,8 +6,8 @@ export default class BadRequestError extends CustomError {
 	readonly status: number;
 	readonly mContext: { [key: string]: any };
 
-	constructor(params?: { code?: number, message?: string, logging?: boolean, context?: { [key: string]: any }}) {
-		const { code, message, logging } = params || {};
+	constructor(params?: { code?: number, message?: string, context?: { [key: string]: any }}) {
+		const { code, message } = params || {};
 
 		super(message || "Bad Request");
 		this.status = code || BadRequestError.mStatus;
